@@ -1,15 +1,15 @@
 #!/bin/bash
 
 build() {
-    add_file "/usr/lib/arch-luks-suspend/initramfs-suspend" "/suspend" 755
+    add_file "/usr/lib/arch-luks-suspend/encrypt-on-suspend" "/bin" 755
 }
 
 help() {
     cat <<HELPEOF
-This hook installs a /run/initramfs/suspend script that suspends the encrypted
+This hook installs a /run/initramfs/bin/encrypt-on-suspend script that suspends the encrypted
 root device before suspending the system.
 
-You will need the udev, encrypt, and shutdown hooks too.
+You will need the udev, encrypt-on-suspend, and shutdown hooks too.
 HELPEOF
 }
 
