@@ -26,6 +26,8 @@ run_dir() {
 
 # Restore chroot
 umount_initramfs() {
+  echo unmounting links from `pwd`
+  echo root is `ls -alh /proc/1/root`
     local p
     for p in ${BIND_PATHS}; do
         ! mountpoint -q "${INITRAMFS_DIR}${p}" || umount "${INITRAMFS_DIR}${p}"
