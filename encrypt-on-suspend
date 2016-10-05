@@ -1,6 +1,12 @@
 #!/bin/sh
 
 cryptname="${1}"
+trap stop_udev EXIT
+
+stop_udev() {
+  # Stop udev from initramfs, as the real daemon from rootfs will be restarted
+  udevadm control --exit
+}
 
 # Start udev from initramfs
 /usr/lib/systemd/systemd-udevd --daemon --resolve-names=never
@@ -18,5 +24,3 @@ echo mem > /sys/power/state
 [ -z "${cryptname}" ] ||
     while ! cryptsetup luksResume "${cryptname}"; do sleep 2; done
 
-# Stop udev from initramfs, as the real daemon from rootfs will be restarted
-udevadm control --exit
